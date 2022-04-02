@@ -1,9 +1,18 @@
+
 import datetime
 from django.http import HttpResponse
+from django.template import Template, Context
 
 def saludo(request):
-    txt = "<h1>Hola mundo</h1>"
-    return HttpResponse(txt)
+    name = "Rodrigo"
+    lastName = "Jimenez"
+    date = datetime.datetime.now()
+    plantilla = open('mysite/templates/saludo.html')
+    plt = Template(plantilla.read())
+    plantilla.close()
+    ctx = Context({'name': name, 'lastName': lastName, 'date': date.date()})
+    doc = plt.render(ctx)
+    return HttpResponse(doc)
 
 def despedida(request):
     return HttpResponse("Adios mundo")
