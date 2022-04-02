@@ -16,6 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from mysite.views import date, despedida, saludo, squadArea
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('saludo/', saludo),
+    path('despedida/', despedida),
+    path('date/', date),
+    path('squadArea/<int:squad>', squadArea),
 ]
