@@ -1,18 +1,23 @@
 
 import datetime
+from django.conf import settings
 from django.http import HttpResponse
-from django.template import Template, Context
+from django.template import loader
+
+def main(request):
+    
+    template = loader.get_template('base.html')
+    context = {'MEDIA_URL': settings.STATIC_URL}
+    return HttpResponse(template.render(context))
 
 def saludo(request):
-    name = "Rodrigo"
-    lastName = "Jimenez"
+    name = "Rodrigo Andres"
+    lastName = "Jimenez Huanca"
     date = datetime.datetime.now()
-    plantilla = open('mysite/templates/saludo.html')
-    plt = Template(plantilla.read())
-    plantilla.close()
-    ctx = Context({'name': name, 'lastName': lastName, 'date': date.date()})
-    doc = plt.render(ctx)
-    return HttpResponse(doc)
+    
+    template = loader.get_template('saludo.html')
+    context = {'name': name, 'lastName': lastName, 'date': date.date()}
+    return HttpResponse(template.render(context))
 
 def despedida(request):
     return HttpResponse("Adios mundo")
