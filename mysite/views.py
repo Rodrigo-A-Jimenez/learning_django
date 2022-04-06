@@ -7,7 +7,7 @@ from django.template import loader
 def main(request):
     
     template = loader.get_template('base.html')
-    context = {'MEDIA_URL': settings.STATIC_URL}
+    context = {}
     return HttpResponse(template.render(context))
 
 def saludo(request):
@@ -28,5 +28,7 @@ def date(request):
     return HttpResponse(txt)
 
 def squadArea(request, squad):
+    page = loader.get_template('squadArea.html')
+    parameters = {'squad': squad, 'area': squad**2, 'squadPX':15*squad, 'textArea': 4*squad}
     txt = "<h1>El área del squad %s es: %s</h1>" % (squad, squad * squad)
-    return HttpResponse(txt)
+    return HttpResponse(page.render(parameters))
